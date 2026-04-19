@@ -18,150 +18,69 @@
     --shadow: 0 4px 20px rgba(0,0,0,0.08);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  body {
-    font-family: 'Nunito', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-  }
+  body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-  /* Header */
-  header {
-    background: #fff;
-    padding: 16px 20px 12px;
-    border-bottom: 2px solid #FFE8D6;
-    position: sticky; top: 0; z-index: 10;
-  }
-  header h1 {
-    font-family: 'Fredoka One', cursive;
-    font-size: 26px;
-    color: var(--th);
-    letter-spacing: 0.5px;
-  }
+  header { background: #fff; padding: 16px 20px 12px; border-bottom: 2px solid #FFE8D6; position: sticky; top: 0; z-index: 10; }
+  header h1 { font-family: 'Fredoka One', cursive; font-size: 26px; color: var(--th); letter-spacing: 0.5px; }
   header p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
-  /* Filter bar */
-  .filters {
-    display: flex; gap: 8px; align-items: center;
-    padding: 12px 20px;
-    overflow-x: auto;
-    background: #fff;
-    border-bottom: 1px solid #f0e8e0;
-    -webkit-overflow-scrolling: touch;
-  }
+  .filters { display: flex; gap: 8px; align-items: center; padding: 12px 20px; overflow-x: auto; background: #fff; border-bottom: 1px solid #f0e8e0; -webkit-overflow-scrolling: touch; }
   .filters::-webkit-scrollbar { display: none; }
-  .chip {
-    flex-shrink: 0;
-    padding: 6px 14px;
-    border-radius: 20px;
-    border: 1.5px solid #ddd;
-    font-size: 13px;
-    font-weight: 600;
-    background: #fff;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'Nunito', sans-serif;
-  }
+  .chip { flex-shrink: 0; padding: 6px 14px; border-radius: 20px; border: 1.5px solid #ddd; font-size: 13px; font-weight: 600; background: #fff; color: var(--text-muted); cursor: pointer; transition: all 0.2s; font-family: 'Nunito', sans-serif; }
   .chip.active { background: var(--th); border-color: var(--th); color: #fff; }
   .chip-en.active { background: var(--en); border-color: var(--en); }
   .chip-ja.active { background: var(--ja); border-color: var(--ja); }
   .chip-cat.active { background: #7C3AED; border-color: #7C3AED; }
   .divider { width: 1px; height: 24px; background: #eee; flex-shrink: 0; }
 
-  /* Grid */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 14px;
-    padding: 16px 20px 100px;
-  }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; padding: 16px 20px 100px; }
 
-  /* Card */
-  .card {
-    background: var(--card-bg);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-    position: relative;
-    border: 2px solid transparent;
-  }
+  .card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; cursor: pointer; transition: transform 0.15s ease; position: relative; border: 2px solid transparent; }
   .card:active { transform: scale(0.94); }
-  .card.playing { border-color: #1D9E75; box-shadow: 0 0 0 4px rgba(29,158,117,0.15); }
-  .card-emoji {
-    height: 110px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 58px;
-    background: linear-gradient(135deg, #FFF0E8, #FFE0D0);
-  }
+  .card-emoji { height: 110px; display: flex; align-items: center; justify-content: center; font-size: 58px; background: linear-gradient(135deg, #FFF0E8, #FFE0D0); }
   .card-body { padding: 10px 12px 12px; }
   .word-main { font-family: 'Fredoka One', cursive; font-size: 22px; line-height: 1.2; color: var(--text); }
   .word-subs { font-size: 11px; color: var(--text-muted); margin-top: 3px; line-height: 1.5; }
-  .lang-badge {
-    display: inline-block;
-    font-size: 10px; font-weight: 700;
-    padding: 2px 8px; border-radius: 10px;
-    margin-top: 6px;
-  }
+  .lang-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-top: 6px; }
   .badge-th { background: #FFE4EC; color: var(--th); }
   .badge-en { background: #DBEAFE; color: #1D4ED8; }
   .badge-ja { background: #FEF3C7; color: #B45309; }
 
-  /* Playing dot */
-  .play-dot {
-    position: absolute; top: 10px; right: 10px;
-    width: 10px; height: 10px; border-radius: 50%;
-    background: #1D9E75;
-    display: none;
-    animation: blink 0.7s infinite alternate;
-  }
-  .card.playing .play-dot { display: block; }
-  @keyframes blink { from { opacity: 1; } to { opacity: 0.2; } }
-
-  /* Status / empty */
-  .status {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 3rem 1rem;
-    color: var(--text-muted);
-    font-size: 14px;
-    line-height: 1.8;
-  }
+  .status { grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--text-muted); font-size: 14px; line-height: 1.8; }
   .status strong { color: var(--text); font-size: 16px; display: block; margin-bottom: 6px; }
 
-  /* Bottom reload bar */
-  .bottom-bar {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    background: #fff;
-    border-top: 1px solid #f0e8e0;
-    padding: 10px 20px;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .reload-btn {
-    flex: 1;
-    background: var(--th);
-    color: #fff;
-    border: none; border-radius: 14px;
-    padding: 12px;
-    font-family: 'Fredoka One', cursive;
-    font-size: 16px;
-    cursor: pointer;
-    transition: opacity 0.2s;
-  }
+  .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #f0e8e0; padding: 10px 20px; display: flex; align-items: center; gap: 10px; }
+  .reload-btn { flex: 1; background: var(--th); color: #fff; border: none; border-radius: 14px; padding: 12px; font-family: 'Fredoka One', cursive; font-size: 16px; cursor: pointer; transition: opacity 0.2s; }
   .reload-btn:active { opacity: 0.8; }
   .count { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
-
-  /* Code block */
   code { font-family: monospace; background: #f5f5f5; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+
+  /* Modal */
+  .modal { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.55); align-items: center; justify-content: center; }
+  .modal.open { display: flex; }
+  .modal-box { background: #fff; border-radius: 32px; width: min(94vw, 400px); padding: 32px 24px 28px; text-align: center; position: relative; box-shadow: 0 24px 64px rgba(0,0,0,0.22); }
+  .modal-close { position: absolute; top: 16px; right: 16px; font-size: 18px; background: #f5f5f5; border: none; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; color: #888; display: flex; align-items: center; justify-content: center; }
+  .modal-emoji { font-size: 100px; line-height: 1.15; margin-bottom: 10px; }
+  .modal-word { font-family: 'Fredoka One', cursive; font-size: 52px; color: var(--text); line-height: 1.1; }
+  .modal-cat { font-size: 13px; color: var(--text-muted); margin-top: 6px; margin-bottom: 22px; }
+  .modal-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 26px; }
+  .lang-btn { padding: 12px 22px; border-radius: 16px; border: none; font-family: 'Fredoka One', cursive; font-size: 17px; cursor: pointer; transition: transform 0.12s; display: flex; align-items: center; gap: 6px; }
+  .lang-btn:active { transform: scale(0.91); }
+  .lang-btn.btn-th { background: #FFE4EC; color: var(--th); }
+  .lang-btn.btn-en { background: #DBEAFE; color: #1D4ED8; }
+  .lang-btn.btn-ja { background: #FEF3C7; color: #B45309; }
+  .lang-btn.btn-playing { outline: 3px solid #1D9E75; outline-offset: 2px; }
+  .modal-nav { display: flex; align-items: center; justify-content: center; gap: 20px; }
+  .nav-btn { width: 56px; height: 56px; border-radius: 50%; border: 2px solid #eee; background: #fff; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+  .nav-btn:active { background: #f0f0f0; }
+  .modal-counter { font-size: 13px; color: var(--text-muted); min-width: 70px; text-align: center; }
 </style>
 </head>
 <body>
 
 <header>
   <h1>🌟 Flashcard ภาษา</h1>
-  <p>จิ้มการ์ดเพื่อฟังเสียงครับ</p>
+  <p>จิ้มการ์ดเพื่อดูและฟังเสียงครับ</p>
 </header>
 
 <div class="filters" id="filters">
@@ -180,15 +99,32 @@
   <button class="reload-btn" onclick="loadSheet()">🔄 โหลดใหม่จาก Google Sheets</button>
 </div>
 
+<!-- Modal -->
+<div class="modal" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-emoji" id="m-emoji">🐱</div>
+    <div class="modal-word" id="m-word">แมว</div>
+    <div class="modal-cat" id="m-cat">สัตว์</div>
+    <div class="modal-btns" id="m-btns"></div>
+    <div class="modal-nav">
+      <button class="nav-btn" onclick="navCard(-1)">←</button>
+      <span class="modal-counter" id="m-counter">1 / 10</span>
+      <button class="nav-btn" onclick="navCard(1)">→</button>
+    </div>
+  </div>
+</div>
+
 <script>
-// ===== แก้ลิงก์ Google Sheets ตรงนี้ =====
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQWc4mucGdyMPL7vKY7lsiJ8IaF2SCJEFtx5CJ9ZGtnCpTGlsa6UA4IUS1YBKoewZ4d3c0l3lC59tvx/pub?gid=0&single=true&output=csv";
-// ==========================================
 
 const langVoice = { th: "th-TH", en: "en-US", ja: "ja-JP" };
-const langLabel = { th: "ไทย", en: "EN", ja: "日本語" };
+const langLabel  = { th: "🇹🇭 ไทย", en: "🇬🇧 EN", ja: "🇯🇵 日本語" };
 const badgeClass = { th: "badge-th", en: "badge-en", ja: "badge-ja" };
-let data = [], selectedLang = "all", selectedCat = "all", currentCard = null;
+const btnClass   = { th: "btn-th",   en: "btn-en",   ja: "btn-ja" };
+
+let data = [], filteredData = [], selectedLang = "all", selectedCat = "all";
+let modalIndex = 0, playingBtn = null;
 
 function parseCSV(text) {
   const lines = text.trim().split("\n");
@@ -233,44 +169,98 @@ function setCat(cat, el) {
   render();
 }
 
-function speak(text, lang, el) {
+function speak(text, lang, btnEl) {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
-  if (currentCard && currentCard !== el) currentCard.classList.remove("playing");
-  el.classList.add("playing");
-  currentCard = el;
+  if (playingBtn) playingBtn.classList.remove("btn-playing");
+  if (btnEl) { btnEl.classList.add("btn-playing"); playingBtn = btnEl; }
   const u = new SpeechSynthesisUtterance(text);
   u.lang = lang; u.rate = 0.82; u.pitch = 1.1;
-  u.onend = u.onerror = () => { el.classList.remove("playing"); currentCard = null; };
+  u.onend = u.onerror = () => { if (playingBtn) playingBtn.classList.remove("btn-playing"); playingBtn = null; };
   window.speechSynthesis.speak(u);
 }
+
+function openModal(index) {
+  modalIndex = index;
+  updateModal();
+  document.getElementById("modal").classList.add("open");
+}
+
+function updateModal() {
+  const r = filteredData[modalIndex];
+  if (!r) return;
+  document.getElementById("m-emoji").textContent = r.emoji || "📖";
+  document.getElementById("m-cat").textContent = r.category || "";
+  document.getElementById("m-counter").textContent = (modalIndex + 1) + " / " + filteredData.length;
+
+  // Show word based on selected lang (if single lang, show that; else show th as main)
+  const mainLang = selectedLang !== "all" ? selectedLang : "th";
+  document.getElementById("m-word").textContent = r[mainLang] || r.th || r.en || r.ja;
+
+  // Buttons for each available language
+  const langs = ["th","en","ja"].filter(l => r[l]);
+  document.getElementById("m-btns").innerHTML = langs.map(l =>
+    `<button class="lang-btn ${btnClass[l]}" onclick="speakModal('${r[l].replace(/'/g,"\\'")}','${langVoice[l]}',this)">${langLabel[l]}<br><span style="font-size:20px">${r[l]}</span></button>`
+  ).join("");
+
+  // Auto-play main language
+  if (window.speechSynthesis) {
+    window.speechSynthesis.cancel();
+    setTimeout(() => {
+      const firstBtn = document.querySelector(".modal-btns .lang-btn");
+      if (firstBtn) speakModal(r[mainLang] || r.th || r.en, langVoice[mainLang] || "th-TH", firstBtn);
+    }, 200);
+  }
+}
+
+function speakModal(text, lang, btn) { speak(text, lang, btn); }
+
+function navCard(dir) {
+  modalIndex = (modalIndex + dir + filteredData.length) % filteredData.length;
+  updateModal();
+}
+
+function closeModal() {
+  window.speechSynthesis && window.speechSynthesis.cancel();
+  document.getElementById("modal").classList.remove("open");
+  playingBtn = null;
+}
+
+function closeModalOutside(e) {
+  if (e.target === document.getElementById("modal")) closeModal();
+}
+
+// Swipe support
+let touchStartX = 0;
+document.getElementById("modal").addEventListener("touchstart", e => { touchStartX = e.touches[0].clientX; });
+document.getElementById("modal").addEventListener("touchend", e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) > 50) navCard(dx < 0 ? 1 : -1);
+});
 
 function render() {
   const grid = document.getElementById("grid");
   grid.innerHTML = "";
   if (!data.length) return;
-  const filtered = data.filter(r => selectedCat === "all" || r.category === selectedCat);
-  const langs = selectedLang === "all" ? ["th","en","ja"] : [selectedLang];
+  filteredData = data.filter(r => selectedCat === "all" || r.category === selectedCat);
   let count = 0;
-  filtered.forEach(r => {
-    langs.forEach(lang => {
-      const word = r[lang]; if (!word) return;
-      const subs = ["th","en","ja"].filter(l => l !== lang).map(l => r[l]).filter(Boolean).join("  ·  ");
-      const emoji = r.emoji || "📖";
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <div class="play-dot"></div>
-        <div class="card-emoji">${emoji}</div>
-        <div class="card-body">
-          <div class="word-main">${word}</div>
-          ${subs ? `<div class="word-subs">${subs}</div>` : ""}
-          <span class="lang-badge ${badgeClass[lang]}">${langLabel[lang]}</span>
-        </div>`;
-      card.onclick = () => speak(word, langVoice[lang], card);
-      grid.appendChild(card);
-      count++;
-    });
+  filteredData.forEach((r, idx) => {
+    const mainLang = selectedLang !== "all" ? selectedLang : "th";
+    const word = r[mainLang] || r.th || r.en || r.ja;
+    const subs = ["th","en","ja"].filter(l => l !== mainLang).map(l => r[l]).filter(Boolean).join("  ·  ");
+    const emoji = r.emoji || "📖";
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <div class="card-emoji">${emoji}</div>
+      <div class="card-body">
+        <div class="word-main">${word}</div>
+        ${subs ? `<div class="word-subs">${subs}</div>` : ""}
+        <span class="lang-badge ${badgeClass[mainLang]}">${selectedLang === 'all' ? 'ทุกภาษา' : langLabel[mainLang].replace(/.*\s/,'')}</span>
+      </div>`;
+    card.onclick = () => openModal(idx);
+    grid.appendChild(card);
+    count++;
   });
   document.getElementById("count").textContent = count + " การ์ด";
 }
@@ -284,6 +274,7 @@ async function loadSheet() {
     const text = await res.text();
     data = parseCSV(text);
     if (!data.length) throw new Error("empty");
+    filteredData = [...data];
     buildCatChips();
     render();
   } catch(e) {
