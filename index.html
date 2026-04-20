@@ -7,87 +7,131 @@
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #FFF8F0;
-    --card-bg: #ffffff;
-    --text: #2D2D2D;
-    --text-muted: #888;
-    --th: #E85D75;
-    --en: #3B82F6;
-    --ja: #F59E0B;
-    --radius: 20px;
-    --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    --bg:#FFF8F0;--card-bg:#fff;--text:#2D2D2D;--muted:#888;
+    --th:#E85D75;--en:#3B82F6;--ja:#F59E0B;--green:#1D9E75;
+    --radius:20px;--shadow:0 4px 20px rgba(0,0,0,0.08);
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 
-  header { background: #fff; padding: 16px 20px 12px; border-bottom: 2px solid #FFE8D6; position: sticky; top: 0; z-index: 10; }
-  header h1 { font-family: 'Fredoka One', cursive; font-size: 26px; color: var(--th); letter-spacing: 0.5px; }
-  header p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  header{background:#fff;padding:14px 20px 10px;border-bottom:2px solid #FFE8D6;position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;}
+  header h1{font-family:'Fredoka One',cursive;font-size:24px;color:var(--th);}
+  .game-btn{background:#FEF3C7;color:#B45309;border:none;border-radius:14px;padding:8px 16px;font-family:'Fredoka One',cursive;font-size:14px;cursor:pointer;}
+  .game-btn:active{opacity:0.8;}
 
-  .filters { display: flex; gap: 8px; align-items: center; padding: 12px 20px; overflow-x: auto; background: #fff; border-bottom: 1px solid #f0e8e0; -webkit-overflow-scrolling: touch; }
-  .filters::-webkit-scrollbar { display: none; }
-  .chip { flex-shrink: 0; padding: 6px 14px; border-radius: 20px; border: 1.5px solid #ddd; font-size: 13px; font-weight: 600; background: #fff; color: var(--text-muted); cursor: pointer; transition: all 0.2s; font-family: 'Nunito', sans-serif; }
-  .chip.active { background: var(--th); border-color: var(--th); color: #fff; }
-  .chip-en.active { background: var(--en); border-color: var(--en); }
-  .chip-ja.active { background: var(--ja); border-color: var(--ja); }
-  .chip-cat.active { background: #7C3AED; border-color: #7C3AED; }
-  .divider { width: 1px; height: 24px; background: #eee; flex-shrink: 0; }
+  .filters{display:flex;gap:8px;align-items:center;padding:10px 20px;overflow-x:auto;background:#fff;border-bottom:1px solid #f0e8e0;-webkit-overflow-scrolling:touch;}
+  .filters::-webkit-scrollbar{display:none;}
+  .chip{flex-shrink:0;padding:5px 13px;border-radius:20px;border:1.5px solid #ddd;font-size:12px;font-weight:600;background:#fff;color:var(--muted);cursor:pointer;font-family:'Nunito',sans-serif;}
+  .chip.active{background:var(--th);border-color:var(--th);color:#fff;}
+  .chip-en.active{background:var(--en);border-color:var(--en);}
+  .chip-ja.active{background:var(--ja);border-color:var(--ja);}
+  .chip-cat.active{background:#7C3AED;border-color:#7C3AED;}
+  .divider{width:1px;height:22px;background:#eee;flex-shrink:0;}
 
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; padding: 16px 20px 100px; }
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:13px;padding:14px 18px 100px;}
+  .card{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;cursor:pointer;transition:transform 0.15s;position:relative;border:2px solid transparent;}
+  .card:active{transform:scale(0.94);}
+  .card-img{height:110px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#FFF0E8,#FFE0D0);overflow:hidden;}
+  .card-img img{width:100%;height:100%;object-fit:cover;}
+  .card-img .emoji-big{font-size:58px;line-height:1;}
+  .card-body{padding:10px 12px 12px;}
+  .word-main{font-family:'Fredoka One',cursive;font-size:21px;line-height:1.2;color:var(--text);}
+  .word-subs{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.5;}
+  .lang-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-top:5px;}
+  .badge-th{background:#FFE4EC;color:var(--th);}
+  .badge-en{background:#DBEAFE;color:#1D4ED8;}
+  .badge-ja{background:#FEF3C7;color:#B45309;}
 
-  .card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; cursor: pointer; transition: transform 0.15s ease; position: relative; border: 2px solid transparent; }
-  .card:active { transform: scale(0.94); }
-  .card-emoji { height: 110px; display: flex; align-items: center; justify-content: center; font-size: 58px; background: linear-gradient(135deg, #FFF0E8, #FFE0D0); }
-  .card-body { padding: 10px 12px 12px; }
-  .word-main { font-family: 'Fredoka One', cursive; font-size: 22px; line-height: 1.2; color: var(--text); }
-  .word-subs { font-size: 11px; color: var(--text-muted); margin-top: 3px; line-height: 1.5; }
-  .lang-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-top: 6px; }
-  .badge-th { background: #FFE4EC; color: var(--th); }
-  .badge-en { background: #DBEAFE; color: #1D4ED8; }
-  .badge-ja { background: #FEF3C7; color: #B45309; }
+  .status{grid-column:1/-1;text-align:center;padding:3rem 1rem;color:var(--muted);font-size:14px;line-height:1.8;}
+  .status strong{color:var(--text);font-size:16px;display:block;margin-bottom:6px;}
 
-  .status { grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--text-muted); font-size: 14px; line-height: 1.8; }
-  .status strong { color: var(--text); font-size: 16px; display: block; margin-bottom: 6px; }
+  .bottom-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #f0e8e0;padding:10px 18px;display:flex;align-items:center;gap:10px;}
+  .reload-btn{flex:1;background:var(--th);color:#fff;border:none;border-radius:14px;padding:11px;font-family:'Fredoka One',cursive;font-size:15px;cursor:pointer;}
+  .reload-btn:active{opacity:0.8;}
+  .count{font-size:12px;color:var(--muted);white-space:nowrap;}
+  code{font-family:monospace;background:#f5f5f5;padding:2px 6px;border-radius:4px;font-size:12px;}
 
-  .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #f0e8e0; padding: 10px 20px; display: flex; align-items: center; gap: 10px; }
-  .reload-btn { flex: 1; background: var(--th); color: #fff; border: none; border-radius: 14px; padding: 12px; font-family: 'Fredoka One', cursive; font-size: 16px; cursor: pointer; transition: opacity 0.2s; }
-  .reload-btn:active { opacity: 0.8; }
-  .count { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
-  code { font-family: monospace; background: #f5f5f5; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+  /* Flashcard Modal */
+  .modal{display:none;position:fixed;inset:0;z-index:100;background:rgba(0,0,0,0.55);align-items:center;justify-content:center;}
+  .modal.open{display:flex;}
+  .modal-box{background:#fff;border-radius:30px;width:min(94vw,400px);padding:28px 22px 24px;text-align:center;position:relative;box-shadow:0 24px 64px rgba(0,0,0,0.22);}
+  .modal-close{position:absolute;top:14px;right:14px;background:#f5f5f5;border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;color:#888;font-size:16px;display:flex;align-items:center;justify-content:center;}
+  .modal-img{height:140px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+  .modal-img img{max-height:140px;max-width:100%;object-fit:contain;border-radius:12px;}
+  .modal-img .emoji-big{font-size:100px;line-height:1;}
+  .modal-word{font-family:'Fredoka One',cursive;font-size:48px;color:var(--text);line-height:1.1;}
+  .modal-cat{font-size:13px;color:var(--muted);margin-top:4px;margin-bottom:18px;}
+  .modal-btns{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-bottom:22px;}
+  .lang-btn{padding:10px 18px;border-radius:14px;border:none;font-family:'Fredoka One',cursive;font-size:15px;cursor:pointer;transition:transform 0.12s;display:flex;flex-direction:column;align-items:center;gap:2px;}
+  .lang-btn:active{transform:scale(0.91);}
+  .lang-btn .btn-word{font-size:18px;}
+  .btn-th{background:#FFE4EC;color:var(--th);}
+  .btn-en{background:#DBEAFE;color:#1D4ED8;}
+  .btn-ja{background:#FEF3C7;color:#B45309;}
+  .lang-btn.btn-playing{outline:3px solid var(--green);outline-offset:2px;}
+  .modal-nav{display:flex;align-items:center;justify-content:center;gap:18px;}
+  .nav-btn{width:52px;height:52px;border-radius:50%;border:2px solid #eee;background:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .nav-btn:active{background:#f0f0f0;}
+  .modal-counter{font-size:13px;color:var(--muted);min-width:60px;text-align:center;}
 
-  /* Modal */
-  .modal { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.55); align-items: center; justify-content: center; }
-  .modal.open { display: flex; }
-  .modal-box { background: #fff; border-radius: 32px; width: min(94vw, 400px); padding: 32px 24px 28px; text-align: center; position: relative; box-shadow: 0 24px 64px rgba(0,0,0,0.22); }
-  .modal-close { position: absolute; top: 16px; right: 16px; font-size: 18px; background: #f5f5f5; border: none; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; color: #888; display: flex; align-items: center; justify-content: center; }
-  .modal-emoji { font-size: 100px; line-height: 1.15; margin-bottom: 10px; }
-  .modal-word { font-family: 'Fredoka One', cursive; font-size: 52px; color: var(--text); line-height: 1.1; }
-  .modal-cat { font-size: 13px; color: var(--text-muted); margin-top: 6px; margin-bottom: 22px; }
-  .modal-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 26px; }
-  .lang-btn { padding: 12px 22px; border-radius: 16px; border: none; font-family: 'Fredoka One', cursive; font-size: 17px; cursor: pointer; transition: transform 0.12s; display: flex; align-items: center; gap: 6px; }
-  .lang-btn:active { transform: scale(0.91); }
-  .lang-btn.btn-th { background: #FFE4EC; color: var(--th); }
-  .lang-btn.btn-en { background: #DBEAFE; color: #1D4ED8; }
-  .lang-btn.btn-ja { background: #FEF3C7; color: #B45309; }
-  .lang-btn.btn-playing { outline: 3px solid #1D9E75; outline-offset: 2px; }
-  .modal-nav { display: flex; align-items: center; justify-content: center; gap: 20px; }
-  .nav-btn { width: 56px; height: 56px; border-radius: 50%; border: 2px solid #eee; background: #fff; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
-  .nav-btn:active { background: #f0f0f0; }
-  .modal-counter { font-size: 13px; color: var(--text-muted); min-width: 70px; text-align: center; }
+  /* Game Modal */
+  .gmodal{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;}
+  .gmodal.open{display:flex;}
+  .gbox{background:#fff;border-radius:30px;width:min(96vw,460px);padding:24px 20px 22px;text-align:center;position:relative;box-shadow:0 24px 64px rgba(0,0,0,0.3);max-height:94vh;overflow-y:auto;}
+  .gclose{position:absolute;top:14px;right:14px;background:#f5f5f5;border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;color:#888;font-size:16px;display:flex;align-items:center;justify-content:center;}
+  .gtitle{font-family:'Fredoka One',cursive;font-size:20px;color:var(--green);margin-bottom:10px;}
+
+  /* Lang picker for game */
+  .glang-row{display:flex;gap:8px;justify-content:center;margin-bottom:14px;}
+  .glang-chip{padding:5px 14px;border-radius:20px;border:1.5px solid #ddd;font-size:12px;font-weight:700;background:#fff;color:var(--muted);cursor:pointer;font-family:'Nunito',sans-serif;}
+  .glang-chip.active{color:#fff;}
+  .glang-chip.gth.active{background:var(--th);border-color:var(--th);}
+  .glang-chip.gen.active{background:var(--en);border-color:var(--en);}
+  .glang-chip.gja.active{background:var(--ja);border-color:var(--ja);}
+
+  /* Reveal area */
+  .reveal-wrap{position:relative;width:200px;height:200px;margin:0 auto 14px;border-radius:20px;overflow:hidden;background:#f0f0f0;}
+  .reveal-img{width:100%;height:100%;object-fit:cover;display:block;}
+  .reveal-emoji{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:120px;line-height:1;}
+  /* Tile grid overlay */
+  .tile-grid{position:absolute;inset:0;display:grid;}
+  .tile{background:rgba(80,80,80,0.85);transition:opacity 0.35s;}
+  .tile.open{opacity:0;}
+  /* Blur overlay */
+  .blur-overlay{position:absolute;inset:0;backdrop-filter:blur(var(--blur,20px));-webkit-backdrop-filter:blur(var(--blur,20px));transition:backdrop-filter 0.4s,opacity 0.4s;}
+  .blur-overlay.gone{opacity:0;pointer-events:none;}
+
+  .reveal-mode-row{display:flex;gap:8px;justify-content:center;margin-bottom:10px;}
+  .mode-chip{padding:4px 12px;border-radius:14px;border:1.5px solid #ddd;font-size:11px;font-weight:700;background:#fff;color:var(--muted);cursor:pointer;font-family:'Nunito',sans-serif;}
+  .mode-chip.active{background:var(--green);border-color:var(--green);color:#fff;}
+
+  .hint-box{background:#F0FDF4;border:2px dashed #86EFAC;border-radius:16px;padding:14px;margin:10px 0;}
+  .hint-text{font-size:17px;font-weight:700;color:#166534;line-height:1.6;}
+  .hint-loading{font-size:13px;color:var(--muted);}
+  .speak-btn{background:var(--green);color:#fff;border:none;border-radius:14px;padding:10px 22px;font-family:'Fredoka One',cursive;font-size:16px;cursor:pointer;margin:6px 0 12px;width:100%;}
+  .speak-btn:active{opacity:0.85;}
+  .hint-btn{background:#E0F2FE;color:#0369A1;border:none;border-radius:14px;padding:9px 18px;font-family:'Fredoka One',cursive;font-size:15px;cursor:pointer;margin-bottom:12px;width:100%;}
+  .hint-btn:active{opacity:0.8;}
+  .gresult{font-family:'Fredoka One',cursive;font-size:26px;margin:10px 0 4px;min-height:34px;}
+  .gnext{background:var(--th);color:#fff;border:none;border-radius:14px;padding:13px;font-family:'Fredoka One',cursive;font-size:17px;cursor:pointer;width:100%;margin-top:12px;display:none;}
+  .gnext:active{opacity:0.85;}
+  .gscore{font-size:12px;color:var(--muted);margin-top:6px;}
+  .spinner{display:inline-block;width:14px;height:14px;border:2px solid #ccc;border-top-color:var(--green);border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:4px;}
+  @keyframes spin{to{transform:rotate(360deg);}}
 </style>
 </head>
 <body>
 
 <header>
   <h1>🌟 Flashcard ภาษา</h1>
-  <p>จิ้มการ์ดเพื่อดูและฟังเสียงครับ</p>
+  <button class="game-btn" onclick="openGame()">🎮 เล่นเกม</button>
 </header>
 
 <div class="filters" id="filters">
-  <button class="chip active" onclick="setLang('all', this)">🌏 ทุกภาษา</button>
-  <button class="chip chip-th" onclick="setLang('th', this)">🇹🇭 ไทย</button>
-  <button class="chip chip-en" onclick="setLang('en', this)">🇬🇧 EN</button>
-  <button class="chip chip-ja" onclick="setLang('ja', this)">🇯🇵 日本語</button>
+  <button class="chip active" onclick="setLang('all',this)">🌏 ทุกภาษา</button>
+  <button class="chip chip-th" onclick="setLang('th',this)">🇹🇭 ไทย</button>
+  <button class="chip chip-en" onclick="setLang('en',this)">🇬🇧 EN</button>
+  <button class="chip chip-ja" onclick="setLang('ja',this)">🇯🇵 日本語</button>
   <div class="divider"></div>
   <span id="catChips"></span>
 </div>
@@ -99,197 +143,343 @@
   <button class="reload-btn" onclick="loadSheet()">🔄 โหลดใหม่จาก Google Sheets</button>
 </div>
 
-<!-- Modal -->
-<div class="modal" id="modal" onclick="closeModalOutside(event)">
+<!-- Flashcard Modal -->
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="modal-emoji" id="m-emoji">🐱</div>
-    <div class="modal-word" id="m-word">แมว</div>
-    <div class="modal-cat" id="m-cat">สัตว์</div>
+    <div class="modal-img" id="m-img"></div>
+    <div class="modal-word" id="m-word"></div>
+    <div class="modal-cat" id="m-cat"></div>
     <div class="modal-btns" id="m-btns"></div>
     <div class="modal-nav">
       <button class="nav-btn" onclick="navCard(-1)">←</button>
-      <span class="modal-counter" id="m-counter">1 / 10</span>
+      <span class="modal-counter" id="m-counter">1 / 1</span>
       <button class="nav-btn" onclick="navCard(1)">→</button>
     </div>
   </div>
 </div>
 
+<!-- Game Modal -->
+<div class="gmodal" id="gmodal" onclick="if(event.target===this)closeGame()">
+  <div class="gbox">
+    <button class="gclose" onclick="closeGame()">✕</button>
+    <div class="gtitle">🎮 ทายซิว่าฉันคืออะไร?</div>
+
+    <!-- lang picker -->
+    <div class="glang-row">
+      <button class="glang-chip gth active" onclick="setGameLang('th',this)">🇹🇭 ไทย</button>
+      <button class="glang-chip gen" onclick="setGameLang('en',this)">🇬🇧 EN</button>
+      <button class="glang-chip gja" onclick="setGameLang('ja',this)">🇯🇵 日本語</button>
+    </div>
+
+    <!-- reveal mode -->
+    <div class="reveal-mode-row">
+      <button class="mode-chip active" onclick="setRevealMode('tile',this)">🟩 เปิดทีละส่วน</button>
+      <button class="mode-chip" onclick="setRevealMode('blur',this)">🌫️ ค่อยๆ ชัด</button>
+    </div>
+
+    <!-- image reveal -->
+    <div class="reveal-wrap" id="g-reveal-wrap">
+      <div id="g-reveal-content"></div>
+      <div class="tile-grid" id="g-tile-grid"></div>
+      <div class="blur-overlay" id="g-blur-overlay"></div>
+    </div>
+
+    <button class="hint-btn" onclick="revealStep()">👁️ เปิดดูเพิ่ม</button>
+
+    <div class="hint-box">
+      <div class="hint-text" id="g-hint">...</div>
+    </div>
+    <button class="speak-btn" id="g-speak-btn" onclick="speakHint()">🔊 ฟังอีกครั้ง</button>
+
+    <div class="gresult" id="g-result"></div>
+    <button class="gnext" id="g-next" onclick="nextRound()">ต่อไป →</button>
+    <div class="gscore" id="g-score"></div>
+  </div>
+</div>
+
 <script>
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQWc4mucGdyMPL7vKY7lsiJ8IaF2SCJEFtx5CJ9ZGtnCpTGlsa6UA4IUS1YBKoewZ4d3c0l3lC59tvx/pub?gid=0&single=true&output=csv";
+const CSV_URL="https://docs.google.com/spreadsheets/d/e/2PACX-1vQWc4mucGdyMPL7vKY7lsiJ8IaF2SCJEFtx5CJ9ZGtnCpTGlsa6UA4IUS1YBKoewZ4d3c0l3lC59tvx/pub?gid=0&single=true&output=csv";
+const GEMINI_KEY=""; // ใส่ Gemini API Key ถ้าต้องการ AI fallback
+const GEMINI_URL=`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`;
 
-const langVoice = { th: "th-TH", en: "en-US", ja: "ja-JP" };
-const langLabel  = { th: "🇹🇭 ไทย", en: "🇬🇧 EN", ja: "🇯🇵 日本語" };
-const badgeClass = { th: "badge-th", en: "badge-en", ja: "badge-ja" };
-const btnClass   = { th: "btn-th",   en: "btn-en",   ja: "btn-ja" };
+const langVoice={th:"th-TH",en:"en-US",ja:"ja-JP"};
+const langLabel={th:"🇹🇭 ไทย",en:"🇬🇧 EN",ja:"🇯🇵 日本語"};
+const btnClass={th:"btn-th",en:"btn-en",ja:"btn-ja"};
 
-let data = [], filteredData = [], selectedLang = "all", selectedCat = "all";
-let modalIndex = 0, playingBtn = null;
+let data=[],filteredData=[],selectedLang="all",selectedCat="all";
+let modalIdx=0,playingBtn=null;
+let gameLang="th",revealMode="tile",revealStep_n=0,revealMax=8;
+let gameAnswer=null,gameHint="",gameScore=0,gameTotal=0;
+let hintCache={};
+const TILE_COLS=4,TILE_ROWS=4,TILE_TOTAL=TILE_COLS*TILE_ROWS;
+let tilesOpen=[];
 
-function parseCSV(text) {
-  const lines = text.trim().split("\n");
-  if (lines.length < 2) return [];
-  const headers = lines[0].split(",").map(h => h.trim().replace(/^"|"$/g, "").toLowerCase());
-  return lines.slice(1).map(line => {
-    const cols = [];
-    let cur = "", inQ = false;
-    for (let c of line) {
-      if (c === '"') { inQ = !inQ; }
-      else if (c === ',' && !inQ) { cols.push(cur); cur = ""; }
-      else cur += c;
-    }
+// ─── CSV ───
+function parseCSV(text){
+  const lines=text.trim().split("\n");
+  if(lines.length<2)return[];
+  const headers=lines[0].split(",").map(h=>h.trim().replace(/^"|"$/g,"").toLowerCase());
+  return lines.slice(1).map(line=>{
+    const cols=[];let cur="",inQ=false;
+    for(let c of line){if(c==='"'){inQ=!inQ;}else if(c===','&&!inQ){cols.push(cur);cur="";}else cur+=c;}
     cols.push(cur);
-    const obj = {};
-    headers.forEach((h, i) => { obj[h] = (cols[i] || "").trim().replace(/^"|"$/g, ""); });
+    const obj={};headers.forEach((h,i)=>{obj[h]=(cols[i]||"").trim().replace(/^"|"$/g,"");});
     return obj;
-  }).filter(r => r.th || r.en || r.ja);
+  }).filter(r=>r.th||r.en||r.ja);
 }
 
-function buildCatChips() {
-  const cats = ["all", ...new Set(data.map(r => r.category).filter(Boolean))];
-  const catIcons = { สัตว์:"🐾", ผลไม้:"🍎", ตัวเลข:"🔢", สี:"🎨", อาหาร:"🍽️" };
-  document.getElementById("catChips").innerHTML = cats.map(c =>
-    `<button class="chip chip-cat ${selectedCat === c ? 'active' : ''}" onclick="setCat('${c}', this)">
-      ${c === "all" ? "📚 ทั้งหมด" : (catIcons[c] || "📌") + " " + c}
-    </button>`
+// ─── Filters ───
+function buildCatChips(){
+  const cats=["all",...new Set(data.map(r=>r.category).filter(Boolean))];
+  const icons={สัตว์:"🐾",ผลไม้:"🍎",ตัวเลข:"🔢",สี:"🎨",อาหาร:"🍽️"};
+  document.getElementById("catChips").innerHTML=cats.map(c=>
+    `<button class="chip chip-cat ${selectedCat===c?'active':''}" onclick="setCat('${c}',this)">${c==="all"?"📚 ทั้งหมด":(icons[c]||"📌")+" "+c}</button>`
   ).join("");
 }
+function setLang(l,el){selectedLang=l;document.querySelectorAll(".filters .chip:not(.chip-cat)").forEach(c=>c.classList.remove("active"));el.classList.add("active");render();}
+function setCat(c,el){selectedCat=c;document.querySelectorAll(".chip-cat").forEach(x=>x.classList.remove("active"));el.classList.add("active");render();}
 
-function setLang(lang, el) {
-  selectedLang = lang;
-  document.querySelectorAll(".filters .chip:not(.chip-cat)").forEach(c => c.classList.remove("active"));
-  el.classList.add("active");
-  render();
-}
-
-function setCat(cat, el) {
-  selectedCat = cat;
-  document.querySelectorAll(".chip-cat").forEach(c => c.classList.remove("active"));
-  el.classList.add("active");
-  render();
-}
-
-function speak(text, lang, btnEl) {
-  if (!window.speechSynthesis) return;
+// ─── Speak ───
+function speak(text,lang,btn){
+  if(!window.speechSynthesis)return;
   window.speechSynthesis.cancel();
-  if (playingBtn) playingBtn.classList.remove("btn-playing");
-  if (btnEl) { btnEl.classList.add("btn-playing"); playingBtn = btnEl; }
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = lang; u.rate = 0.82; u.pitch = 1.1;
-  u.onend = u.onerror = () => { if (playingBtn) playingBtn.classList.remove("btn-playing"); playingBtn = null; };
+  if(playingBtn)playingBtn.classList.remove("btn-playing");
+  if(btn){btn.classList.add("btn-playing");playingBtn=btn;}
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang=lang;u.rate=0.82;u.pitch=1.1;
+  u.onend=u.onerror=()=>{if(playingBtn)playingBtn.classList.remove("btn-playing");playingBtn=null;};
   window.speechSynthesis.speak(u);
 }
+function speakRaw(text,lang){speak(text,lang,null);}
 
-function openModal(index) {
-  modalIndex = index;
-  updateModal();
-  document.getElementById("modal").classList.add("open");
+// ─── Render grid ───
+function imgOrEmoji(r,cls="emoji-big"){
+  if(r.image_url) return `<img src="${r.image_url}" alt="${r.th||''}" onerror="this.parentElement.innerHTML='<div class=\'${cls}\'>${r.emoji||'📖'}</div>'">`;
+  return `<div class="${cls}">${r.emoji||"📖"}</div>`;
+}
+function render(){
+  const grid=document.getElementById("grid");
+  grid.innerHTML="";
+  if(!data.length)return;
+  filteredData=data.filter(r=>selectedCat==="all"||r.category===selectedCat);
+  filteredData.forEach((r,idx)=>{
+    const ml=selectedLang!=="all"?selectedLang:"th";
+    const word=r[ml]||r.th||r.en||r.ja;
+    const subs=["th","en","ja"].filter(l=>l!==ml).map(l=>r[l]).filter(Boolean).join("  ·  ");
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`<div class="card-img">${imgOrEmoji(r)}</div>
+      <div class="card-body">
+        <div class="word-main">${word}</div>
+        ${subs?`<div class="word-subs">${subs}</div>`:""}
+        <span class="lang-badge badge-${ml}">${ml.toUpperCase()}</span>
+      </div>`;
+    card.onclick=()=>openModal(idx);
+    grid.appendChild(card);
+  });
+  document.getElementById("count").textContent=filteredData.length+" การ์ด";
 }
 
-function updateModal() {
-  const r = filteredData[modalIndex];
-  if (!r) return;
-  document.getElementById("m-emoji").textContent = r.emoji || "📖";
-  document.getElementById("m-cat").textContent = r.category || "";
-  document.getElementById("m-counter").textContent = (modalIndex + 1) + " / " + filteredData.length;
-
-  // Show word based on selected lang (if single lang, show that; else show th as main)
-  const mainLang = selectedLang !== "all" ? selectedLang : "th";
-  document.getElementById("m-word").textContent = r[mainLang] || r.th || r.en || r.ja;
-
-  // Buttons for each available language
-  const langs = ["th","en","ja"].filter(l => r[l]);
-  document.getElementById("m-btns").innerHTML = langs.map(l =>
-    `<button class="lang-btn ${btnClass[l]}" onclick="speakModal('${r[l].replace(/'/g,"\\'")}','${langVoice[l]}',this)">${langLabel[l]}<br><span style="font-size:20px">${r[l]}</span></button>`
+// ─── Flashcard Modal ───
+function openModal(idx){modalIdx=idx;updateModal();document.getElementById("modal").classList.add("open");}
+function updateModal(){
+  const r=filteredData[modalIdx];if(!r)return;
+  document.getElementById("m-img").innerHTML=imgOrEmoji(r,"emoji-big");
+  document.getElementById("m-cat").textContent=r.category||"";
+  document.getElementById("m-counter").textContent=(modalIdx+1)+" / "+filteredData.length;
+  const ml=selectedLang!=="all"?selectedLang:"th";
+  document.getElementById("m-word").textContent=r[ml]||r.th||r.en||r.ja;
+  const langs=["th","en","ja"].filter(l=>r[l]);
+  document.getElementById("m-btns").innerHTML=langs.map(l=>
+    `<button class="lang-btn ${btnClass[l]}" onclick="speak('${(r[l]||'').replace(/'/g,"\\'")}','${langVoice[l]}',this)">
+      <span style="font-size:11px">${langLabel[l]}</span>
+      <span class="btn-word">${r[l]}</span>
+    </button>`
   ).join("");
+  setTimeout(()=>{const b=document.querySelector(".modal-btns .lang-btn");if(b)b.click();},200);
+}
+function navCard(d){modalIdx=(modalIdx+d+filteredData.length)%filteredData.length;updateModal();}
+function closeModal(){window.speechSynthesis&&window.speechSynthesis.cancel();document.getElementById("modal").classList.remove("open");playingBtn=null;}
+let touchX=0;
+document.getElementById("modal").addEventListener("touchstart",e=>{touchX=e.touches[0].clientX;});
+document.getElementById("modal").addEventListener("touchend",e=>{const dx=e.changedTouches[0].clientX-touchX;if(Math.abs(dx)>50)navCard(dx<0?1:-1);});
 
-  // Auto-play main language
-  if (window.speechSynthesis) {
-    window.speechSynthesis.cancel();
-    setTimeout(() => {
-      const firstBtn = document.querySelector(".modal-btns .lang-btn");
-      if (firstBtn) speakModal(r[mainLang] || r.th || r.en, langVoice[mainLang] || "th-TH", firstBtn);
-    }, 200);
+// ─── GAME ───
+function setGameLang(l,el){gameLang=l;document.querySelectorAll(".glang-chip").forEach(c=>c.classList.remove("active"));el.classList.add("active");}
+function setRevealMode(m,el){revealMode=m;document.querySelectorAll(".mode-chip").forEach(c=>c.classList.remove("active"));el.classList.add("active");}
+
+function openGame(){
+  const pool=filteredData.filter(r=>r.th||r.en||r.ja);
+  if(pool.length<2){alert("ต้องมีคำศัพท์อย่างน้อย 2 คำก่อนเล่นเกมครับ");return;}
+  gameScore=0;gameTotal=0;
+  document.getElementById("gmodal").classList.add("open");
+  startRound();
+}
+function closeGame(){window.speechSynthesis&&window.speechSynthesis.cancel();document.getElementById("gmodal").classList.remove("open");}
+
+async function startRound(){
+  document.getElementById("g-result").textContent="";
+  document.getElementById("g-next").style.display="none";
+  document.getElementById("g-hint").innerHTML='<span class="spinner"></span> กำลังคิดคำใบ้...';
+  document.getElementById("g-speak-btn").style.display="none";
+
+  const pool=filteredData.filter(r=>r[gameLang]);
+  gameAnswer=pool[Math.floor(Math.random()*pool.length)];
+  revealStep_n=0;
+  setupReveal(gameAnswer);
+
+  const hint=await getHint(gameAnswer,gameLang);
+  gameHint=hint;
+  document.getElementById("g-hint").textContent=hint;
+  document.getElementById("g-speak-btn").style.display="block";
+  speakRaw(hint,langVoice[gameLang]);
+  document.getElementById("g-score").textContent=gameTotal>0?`คะแนน: ${gameScore}/${gameTotal}`:"";
+}
+
+// ─── Reveal image ───
+function setupReveal(r){
+  const wrap=document.getElementById("g-reveal-wrap");
+  const content=document.getElementById("g-reveal-content");
+  const tileGrid=document.getElementById("g-tile-grid");
+  const blurOv=document.getElementById("g-blur-overlay");
+
+  // content
+  if(r.image_url){
+    content.innerHTML=`<img class="reveal-img" src="${r.image_url}" alt="">`;
+  } else {
+    content.innerHTML=`<div class="reveal-emoji">${r.emoji||"📖"}</div>`;
+  }
+
+  if(revealMode==="tile"){
+    // tile grid
+    tileGrid.style.display="grid";
+    tileGrid.style.gridTemplateColumns=`repeat(${TILE_COLS},1fr)`;
+    tileGrid.style.gridTemplateRows=`repeat(${TILE_ROWS},1fr)`;
+    blurOv.className="blur-overlay gone";
+    tilesOpen=[];
+    tileGrid.innerHTML=Array.from({length:TILE_TOTAL},(_,i)=>`<div class="tile" id="tile-${i}"></div>`).join("");
+    revealMax=TILE_TOTAL;
+  } else {
+    // blur mode
+    tileGrid.style.display="none";
+    blurOv.className="blur-overlay";
+    blurOv.style.setProperty("--blur","28px");
+    revealMax=6;
   }
 }
 
-function speakModal(text, lang, btn) { speak(text, lang, btn); }
-
-function navCard(dir) {
-  modalIndex = (modalIndex + dir + filteredData.length) % filteredData.length;
-  updateModal();
+function revealStep(){
+  if(revealStep_n>=revealMax)return;
+  if(revealMode==="tile"){
+    // open 2 random closed tiles
+    const closed=Array.from({length:TILE_TOTAL},(_,i)=>i).filter(i=>!tilesOpen.includes(i));
+    const toOpen=shuffle(closed).slice(0,2);
+    toOpen.forEach(i=>{
+      tilesOpen.push(i);
+      const el=document.getElementById("tile-"+i);
+      if(el)el.classList.add("open");
+    });
+    revealStep_n+=2;
+  } else {
+    revealStep_n++;
+    const blurVal=Math.max(0,28-(revealStep_n*5));
+    const ov=document.getElementById("g-blur-overlay");
+    if(blurVal===0){ov.className="blur-overlay gone";}
+    else{ov.style.setProperty("--blur",blurVal+"px");}
+  }
 }
 
-function closeModal() {
-  window.speechSynthesis && window.speechSynthesis.cancel();
-  document.getElementById("modal").classList.remove("open");
-  playingBtn = null;
+function fullyReveal(){
+  if(revealMode==="tile"){
+    document.querySelectorAll(".tile").forEach(t=>t.classList.add("open"));
+  } else {
+    const ov=document.getElementById("g-blur-overlay");
+    ov.className="blur-overlay gone";
+  }
 }
 
-function closeModalOutside(e) {
-  if (e.target === document.getElementById("modal")) closeModal();
+// ─── Hint (Sheet first, AI fallback) ───
+async function getHint(r,lang){
+  const key=`${r.th||r.en}_${lang}`;
+  if(hintCache[key])return hintCache[key];
+  const hintCol="hint_"+lang;
+  if(r[hintCol]&&r[hintCol].trim()){hintCache[key]=r[hintCol];return r[hintCol];}
+  // AI fallback (Gemini)
+  if(GEMINI_KEY){
+    try{
+      const prompts={
+        th:`สร้างคำใบ้ภาษาไทยสำหรับเด็ก 5 ขวบ สำหรับคำว่า "${r.th}" (หมวด: ${r.category||""}) ใช้ประโยคสั้นๆ 2-3 ประโยค ห้ามบอกชื่อตรงๆ ตอบเฉพาะคำใบ้เท่านั้น`,
+        en:`Simple English hint for a 5-year-old for "${r.en}" (category: ${r.category||""}). 2-3 easy sentences, no direct name. Reply hint only.`,
+        ja:`「${r.ja}」（${r.category||""}）について5歳向けのヒントを日本語で2〜3文。直接名前は言わない。ヒントだけ返して。`,
+      };
+      const res=await fetch(GEMINI_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({contents:[{parts:[{text:prompts[lang]||prompts.th}]}],generationConfig:{maxOutputTokens:120,temperature:0.8}})});
+      const json=await res.json();
+      const hint=json.candidates?.[0]?.content?.parts?.[0]?.text?.trim()||fallbackHint(r);
+      hintCache[key]=hint;return hint;
+    }catch(e){return fallbackHint(r);}
+  }
+  return fallbackHint(r);
 }
 
-// Swipe support
-let touchStartX = 0;
-document.getElementById("modal").addEventListener("touchstart", e => { touchStartX = e.touches[0].clientX; });
-document.getElementById("modal").addEventListener("touchend", e => {
-  const dx = e.changedTouches[0].clientX - touchStartX;
-  if (Math.abs(dx) > 50) navCard(dx < 0 ? 1 : -1);
-});
-
-function render() {
-  const grid = document.getElementById("grid");
-  grid.innerHTML = "";
-  if (!data.length) return;
-  filteredData = data.filter(r => selectedCat === "all" || r.category === selectedCat);
-  let count = 0;
-  filteredData.forEach((r, idx) => {
-    const mainLang = selectedLang !== "all" ? selectedLang : "th";
-    const word = r[mainLang] || r.th || r.en || r.ja;
-    const subs = ["th","en","ja"].filter(l => l !== mainLang).map(l => r[l]).filter(Boolean).join("  ·  ");
-    const emoji = r.emoji || "📖";
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <div class="card-emoji">${emoji}</div>
-      <div class="card-body">
-        <div class="word-main">${word}</div>
-        ${subs ? `<div class="word-subs">${subs}</div>` : ""}
-        <span class="lang-badge ${badgeClass[mainLang]}">${selectedLang === 'all' ? 'ทุกภาษา' : langLabel[mainLang].replace(/.*\s/,'')}</span>
-      </div>`;
-    card.onclick = () => openModal(idx);
-    grid.appendChild(card);
-    count++;
-  });
-  document.getElementById("count").textContent = count + " การ์ด";
+function fallbackHint(r){
+  const fb={สัตว์:"ฉันเป็นสัตว์ที่มีชีวิต ลองทายดูซิว่าฉันคืออะไร?",ผลไม้:"ฉันเป็นผลไม้ที่กินได้ รสชาติอร่อยมาก!",ตัวเลข:"ฉันเป็นตัวเลข ลองนับดูสิ!",สี:"ฉันเป็นสีที่สวยงาม ลองมองรอบๆ ตัวสิ!",อาหาร:"ฉันเป็นอาหารที่กินได้ อร่อยมากเลย!"};
+  return fb[r.category]||"ลองทายดูซิว่าฉันคืออะไร?";
 }
 
-async function loadSheet() {
-  const grid = document.getElementById("grid");
-  grid.innerHTML = `<div class="status"><strong>กำลังโหลด...</strong>ดึงข้อมูลจาก Google Sheets</div>`;
-  document.getElementById("count").textContent = "...";
-  try {
-    const res = await fetch(CSV_URL + "&t=" + Date.now());
-    const text = await res.text();
-    data = parseCSV(text);
-    if (!data.length) throw new Error("empty");
-    filteredData = [...data];
-    buildCatChips();
-    render();
-  } catch(e) {
-    grid.innerHTML = `
-      <div class="status">
-        <strong>ยังไม่มีข้อมูลครับ</strong>
-        กรอกข้อมูลใน Google Sheets ให้มีหัวตาราง:<br><br>
-        <code>th</code> &nbsp; <code>en</code> &nbsp; <code>ja</code> &nbsp; <code>category</code> &nbsp; <code>emoji</code><br><br>
-        แล้วกดปุ่ม <strong>โหลดใหม่</strong> ด้านล่างครับ
-      </div>`;
-    document.getElementById("count").textContent = "0 การ์ด";
+function speakHint(){speakRaw(gameHint,langVoice[gameLang]);}
+
+function checkRevealAnswer(isCorrect){
+  if(document.getElementById("g-next").style.display==="block")return;
+  gameTotal++;
+  if(isCorrect)gameScore++;
+  fullyReveal();
+  document.getElementById("g-result").textContent=isCorrect?"🎉 เก่งมากเลย!":`💡 คำตอบคือ "${gameAnswer[gameLang]||gameAnswer.th}"`;
+  document.getElementById("g-score").textContent=`คะแนน: ${gameScore}/${gameTotal}`;
+  document.getElementById("g-next").style.display="block";
+  speakRaw(isCorrect?"เก่งมากเลย":`คำตอบคือ ${gameAnswer[gameLang]||gameAnswer.th}`,langVoice[gameLang]);
+}
+
+function nextRound(){startRound();}
+function shuffle(a){return[...a].sort(()=>Math.random()-0.5);}
+
+// ─── Load Sheet ───
+async function loadSheet(){
+  const grid=document.getElementById("grid");
+  grid.innerHTML=`<div class="status"><strong>กำลังโหลด...</strong></div>`;
+  try{
+    const res=await fetch(CSV_URL+"&t="+Date.now());
+    const text=await res.text();
+    data=parseCSV(text);
+    if(!data.length)throw new Error("empty");
+    filteredData=[...data];
+    buildCatChips();render();
+  }catch(e){
+    grid.innerHTML=`<div class="status"><strong>ยังไม่มีข้อมูลครับ</strong>กรอกข้อมูลใน Google Sheets แล้วกดโหลดใหม่ครับ</div>`;
   }
 }
 
 loadSheet();
 </script>
+
+<!-- Game answer buttons (outside gbox to avoid z-index issues) -->
+<script>
+// Patch: add yes/no buttons after render
+const _orig=window.startRound;
+document.addEventListener("DOMContentLoaded",()=>{
+  const nextBtn=document.getElementById("g-next");
+  if(!nextBtn)return;
+  // inject answer row before g-next
+  const ansRow=document.createElement("div");
+  ansRow.id="g-ans-row";
+  ansRow.style.cssText="display:flex;gap:10px;margin-top:10px;";
+  ansRow.innerHTML=`
+    <button onclick="checkRevealAnswer(false)" style="flex:1;background:#FEE2E2;color:#DC2626;border:none;border-radius:14px;padding:13px;font-family:'Fredoka One',cursive;font-size:18px;cursor:pointer;">❌ ทายผิด</button>
+    <button onclick="checkRevealAnswer(true)" style="flex:1;background:#D1FAE5;color:#065F46;border:none;border-radius:14px;padding:13px;font-family:'Fredoka One',cursive;font-size:18px;cursor:pointer;">✅ ทายถูก</button>
+  `;
+  nextBtn.parentNode.insertBefore(ansRow,nextBtn);
+});
+</script>
+
 </body>
 </html>
